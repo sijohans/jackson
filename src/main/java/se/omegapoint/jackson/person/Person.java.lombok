@@ -1,0 +1,9 @@
+package se.omegapoint.jackson.person;
+
+import lombok.Data;
+
+@Data
+public class Person {
+    private final int age;
+    private final String name;
+}

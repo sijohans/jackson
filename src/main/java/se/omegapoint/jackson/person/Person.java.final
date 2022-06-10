@@ -1,0 +1,24 @@
+package se.omegapoint.jackson.person;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Person {
+
+    private final int age;
+    private final String name;
+
+    public Person(@JsonProperty(value = "age", required = true) int age,
+                  @JsonProperty(value = "name", required = true) String name) {
+        this.age = age;
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}
