@@ -5,8 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ShapesFuzzer {
 
-    public final static ObjectMapper mapper = new ObjectMapper();
+    private final static ObjectMapper mapper = new ObjectMapper();
 
+    @SuppressWarnings("unused")
     public static void fuzzerTestOneInput(com.code_intelligence.jazzer.api.FuzzedDataProvider data) {
         parse(data.consumeRemainingAsString());
     }
@@ -17,6 +18,7 @@ public class ShapesFuzzer {
             if (!(shapesObj != null && shapesObj.getShapes() != null)) {
                 throw new NullPointerException("Something was null"); /* Trigger crash */
             }
+
             for (Shape shape : shapesObj.getShapes()) {
                 boolean validInstance = false;
                 switch (shape.getType()) {
@@ -37,6 +39,7 @@ public class ShapesFuzzer {
                     throw new IllegalStateException("Bad instance...");
                 }
             }
+
         } catch(JsonProcessingException e) {
             /* Expected */
         }

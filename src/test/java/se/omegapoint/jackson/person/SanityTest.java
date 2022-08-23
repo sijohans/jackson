@@ -12,7 +12,7 @@ public class SanityTest {
     @Test
     public void testSanity() throws JsonProcessingException {
         String jsonRep = "{\"age\": 10, \"name\": \"Alice\"}";
-        Person person = mapper.readValue(jsonRep, Person.class);
+        Person person = Person.fromString(jsonRep);
         Assert.assertNotNull(person);
         Assert.assertEquals(10, person.getAge());
         Assert.assertEquals("Alice", person.getName());
@@ -21,13 +21,13 @@ public class SanityTest {
     @Test(expected = JsonProcessingException.class)
     public void testDoNotAllowMissingAge() throws JsonProcessingException {
         String jsonRep = "{\"name\": \"Bob\"}";
-        mapper.readValue(jsonRep, Person.class);
+        Person.fromString(jsonRep);
     }
 
     @Test(expected = JsonProcessingException.class)
     public void testDoNotAllowMissingName() throws JsonProcessingException {
         String jsonRep = "{\"age\": 15}";
-        mapper.readValue(jsonRep, Person.class);
+        Person person = Person.fromString(jsonRep);
     }
 
 }

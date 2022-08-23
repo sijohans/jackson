@@ -17,33 +17,32 @@ public class StrictTypesTest {
     public static Collection<String> data() {
         return Arrays.asList(new String[]{
                 /* Invalid type for age */
-                "{\"age\": 14.32,        \"name\": \"Alice\"}",
-                "{\"age\": -1.67,        \"name\": \"Alice\"}",
-                "{\"age\": \"10\",       \"name\": \"Alice\"}",
-                "{\"age\": null,         \"name\": \"Alice\"}",
-                "{\"age\": true,         \"name\": \"Alice\"}",
-                "{\"age\": false,        \"name\": \"Alice\"}",
-                "{\"age\": {},           \"name\": \"Alice\"}",
-                "{\"age\": [],           \"name\": \"Alice\"}",
-                "{\"age\": {\"age\":10}, \"name\": \"Alice\"}",
-                "{\"age\": [{\"age\":10}], \"name\": \"Alice\"}",
+                "{\"age\": 14.32,        \"name\": \"Alice\"}",  // ok by default
+                "{\"age\": -1.67,        \"name\": \"Alice\"}", // ok by default
+                "{\"age\": \"10\",       \"name\": \"Alice\"}", // ok by default
+                "{\"age\": null,         \"name\": \"Alice\"}", // ok by default
+                "{\"age\": true,         \"name\": \"Alice\"}", // nok by default
+                "{\"age\": false,        \"name\": \"Alice\"}", // nok by default
+                "{\"age\": {},           \"name\": \"Alice\"}", // nok by default
+                "{\"age\": [],           \"name\": \"Alice\"}", // nok by default
+                "{\"age\": {\"age\":10}, \"name\": \"Alice\"}", // nok by default
+                "{\"age\": [{\"age\":10}], \"name\": \"Alice\"}", // nok by default
                 /* Invalid type for name */
-                "{\"age\": 10, \"name\": 13}",
-                "{\"age\": 10, \"name\": -23}",
-                "{\"age\": 10, \"name\": 2.32}",
-                "{\"age\": 10, \"name\": -0.13}",
-                "{\"age\": 10, \"name\": null}",
-                "{\"age\": 10, \"name\": true}",
-                "{\"age\": 10, \"name\": false}",
-                "{\"age\": 10, \"name\": {}}",
-                "{\"age\": 10, \"name\": []}",
-                "{\"age\": 10, \"name\": {\"name\": \"Alice\"}}",
-                "{\"age\": 10, \"name\": [{\"name\": \"Alice\"}}]",
+                "{\"age\": 10, \"name\": 13}", //
+                "{\"age\": 10, \"name\": -23}", //
+                "{\"age\": 10, \"name\": 2.32}", //
+                "{\"age\": 10, \"name\": -0.13}", //
+                "{\"age\": 10, \"name\": null}", //
+                "{\"age\": 10, \"name\": true}", //
+                "{\"age\": 10, \"name\": false}", //
+                "{\"age\": 10, \"name\": {}}", // nok by default
+                "{\"age\": 10, \"name\": []}", // nok by default
+                "{\"age\": 10, \"name\": {\"name\": \"Alice\"}}", // nok by default
+                "{\"age\": 10, \"name\": [{\"name\": \"Alice\"}}]",  // nok by default
         });
     }
 
 
-    private final ObjectMapper mapper = new ObjectMapper();
     private final String jsonRep;
 
     public StrictTypesTest(String jsonRep) {
@@ -52,7 +51,7 @@ public class StrictTypesTest {
 
     @Test(expected = JsonProcessingException.class)
     public void testThrowsErrorWithWrongTypes() throws JsonProcessingException {
-        mapper.readValue(jsonRep, Person.class);
+        Person.fromString(jsonRep);
     }
 
 }

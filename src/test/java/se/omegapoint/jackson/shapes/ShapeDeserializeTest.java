@@ -14,7 +14,7 @@ public class ShapeDeserializeTest {
     @Test
     public void testDeserializeAsShape() throws JsonProcessingException {
         String jsonRep = "{\"type\": 0,\"height\":4,\"width\":3}";
-        Shape shape = mapper.readValue(jsonRep, Shape.class);
+        Shape shape = Shape.fromString(jsonRep);
         Assert.assertNotNull(shape);
         Assert.assertEquals(TRIANGLE, shape.getType());
         Assert.assertTrue(shape instanceof Triangle);

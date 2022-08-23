@@ -16,7 +16,7 @@ public class SanityTest {
     @Test
     public void testShapesListSanity() throws JsonProcessingException {
         String jsonRep = "{\"shapes\":[{\"type\":0,\"height\":3,\"width\":4},{\"type\":1,\"radius\":12},{\"type\":2,\"height\":4,\"width\":5},{\"type\":3,\"size\":9}]}";
-        Shapes shapesObj = mapper.readValue(jsonRep, Shapes.class);
+        Shapes shapesObj = Shapes.fromString(jsonRep);
         Assert.assertNotNull(shapesObj);
         List<Shape> shapes = shapesObj.getShapes();
         Assert.assertNotNull(shapes);
